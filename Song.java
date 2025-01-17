@@ -1,16 +1,27 @@
+import java.time.LocalDate;
 import java.util.*;
 
 class Song implements Comparable<Song> {
     private String title;
     private String artist;
-    private String dateOfPublish;
+//    private String dateOfPublish;
     private int playCount;
+    private LocalDate date;
 
-    public Song(String title, String artist, String dateOfPublish) {
+//    public Song(String title, String artist, String dateOfPublish) {
+//        this.title = title;
+//        this.artist = artist;
+//        this.dateOfPublish = dateOfPublish;
+//        this.playCount = 0;
+////        if( !date == NULL)
+//        this.date = LocalDate.now();
+//    }
+
+    public Song(String title, String artist, LocalDate date){
         this.title = title;
         this.artist = artist;
-        this.dateOfPublish = dateOfPublish;
         this.playCount = 0;
+        this.date = date ;
     }
 
     public String getTitle() {
@@ -21,8 +32,12 @@ class Song implements Comparable<Song> {
         return artist;
     }
 
-    public String getDateOfPublish() {
-        return dateOfPublish;
+//    public String getDateOfPublish() {
+//        return dateOfPublish;
+//    }
+
+    public LocalDate getDate(){
+        return date;
     }
 
     public int getPlayCount() {
@@ -31,6 +46,10 @@ class Song implements Comparable<Song> {
 
     public void incrementPlayCount() {
         playCount++;
+    }
+
+    public void dateChange( LocalDate date){
+        this.date = date;
     }
 
     @Override
@@ -43,7 +62,7 @@ class Song implements Comparable<Song> {
 
     @Override
     public String toString() {
-        return "Title: " + title + ", Artist: " + artist + ", Date: " + dateOfPublish + ", Plays: " + playCount;
+        return "Title: " + title + ", Artist: " + artist + ", Date: " + date + ", Plays: " + playCount;
     }
 }
 

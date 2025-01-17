@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.TreeSet;
 
 class MusicPlayer {
@@ -9,6 +10,14 @@ class MusicPlayer {
 
     public void addSong(Song song) {
         songs.add(song);
+    }
+
+    public void changeDate(LocalDate date, String title){
+        for( Song song: songs){
+            if(song.getTitle().equalsIgnoreCase(title)){
+                song.dateChange(date);
+            }
+        }
     }
 
     public void playSong(String title, String artist) {
@@ -24,28 +33,19 @@ class MusicPlayer {
         System.out.println("Song not found.");
     }
 
-    public void mostPopularSongByArtist(String artist) {
-        Song mostPopular = null;
+    public void playSong( String title, String artist, LocalDate date){
         for (Song song : songs) {
-            if (song.getArtist().equalsIgnoreCase(artist)) {
-                mostPopular = song;
-                break;
+            if (song.getTitle().equalsIgnoreCase(title) && song.getArtist().equalsIgnoreCase(artist) && song.getDate().isEqual(date)) {
+                songs.remove(song);
+                song.incrementPlayCount();
+                songs.add(song);
+                System.out.println("Playing: " + song + "\n");
+                return;
             }
         }
-        if (mostPopular != null) {
-            System.out.println("Most popular song by " + artist + ": " + mostPopular + "\n");
-        } else {
-            System.out.println("No songs found by " + artist + "\n");
-        }
+        System.out.println("Song not found.");
     }
 
-    public void mostPopularSongOverall() {
-        if (!songs.isEmpty()) {
-            System.out.println("Most popular song overall: " + songs.first() + "\n");
-        } else {
-            System.out.println("No songs available." + "\n");
-        }
-    }
 
     public void nPopularSongOverall(int n) {
         if (!songs.isEmpty()) {
@@ -63,10 +63,57 @@ class MusicPlayer {
         }
     }
 
-    public void songsByDate(String date) {
+    public void nPopularSongOverall(int n, String artist) {
+        if (!songs.isEmpty()) {
+            int i = 1 ;
+            for( Song song : songs ) {
+                if (i < n + 1 && song.getTitle().equals(artist)) {
+                    System.out.println(i + "th popular song overall is : ");
+                    System.out.println(song);
+                    i++;
+                }
+            }
+            System.out.println("\n");
+        } else {
+            System.out.println("No songs available." + "\n");
+        }
+    }
+    public void nPopularSongOnDate(int n, LocalDate date) {
+        if (!songs.isEmpty()) {
+            int i = 1 ;
+            for( Song song : songs ) {
+                if (i < n + 1 && song.getDate().isEqual(date)) {
+                    System.out.println(i + "th popular song overall is : ");
+                    System.out.println(song);
+                    i++;
+                }
+            }
+            System.out.println("\n");
+        } else {
+            System.out.println("No songs available." + "\n");
+        }
+    }
+
+    public void nPopularSongBeforeDate(int n, LocalDate date) {
+        if (!songs.isEmpty()) {
+            int i = 1 ;
+            for( Song song : songs ) {
+                if (i < n + 1 && song.getDate().isBefore(date)) {
+                    System.out.println(i + "th popular song overall is : ");
+                    System.out.println(song);
+                    i++;
+                }
+            }
+            System.out.println("\n");
+        } else {
+            System.out.println("No songs available." + "\n");
+        }
+    }
+
+    public void songByDate(LocalDate date) {
         boolean found = false;
         for (Song song : songs) {
-            if (song.getDateOfPublish().equals(date)) {
+            if (song.getDate().isBefore(date)) {
                 System.out.println(song);
                 found = true;
             }
@@ -80,7 +127,7 @@ class MusicPlayer {
         if (songs.isEmpty()) {
             System.out.println("No songs available." + "\n");
         } else {
-            System.out.println("All Songs:" + "\n") ;
+            System.out.println("All Songs:" ) ;
             for (Song song : songs) {
                 System.out.println(song);
             }
@@ -121,3 +168,39 @@ class MusicPlayer {
 //
 //
 //}
+
+//    public void songsByDate(String date) {
+//        boolean found = false;
+//        for (Song song : songs) {
+//            if (song.getDateOfPublish().equals(date)) {
+//                System.out.println(song);
+//                found = true;
+//            }
+//        }
+//        if (!found) {
+//            System.out.println("No songs found for the specified date." + "\n");
+//        }
+//    }
+
+//    public void mostPopularSongByArtist(String artist) {
+//        Song mostPopular = null;
+//        for (Song song : songs) {
+//            if (song.getArtist().equalsIgnoreCase(artist)) {
+//                mostPopular = song;
+//                break;
+//            }
+//        }
+//        if (mostPopular != null) {
+//            System.out.println("Most popular song by " + artist + ": " + mostPopular + "\n");
+//        } else {
+//            System.out.println("No songs found by " + artist + "\n");
+//        }
+//    }
+//
+//    public void mostPopularSongOverall() {
+//        if (!songs.isEmpty()) {
+//            System.out.println("Most popular song overall: " + songs.first() + "\n");
+//        } else {
+//            System.out.println("No songs available." + "\n");
+//        }
+//    }

@@ -1,17 +1,23 @@
+import java.time.LocalDate;
+
 public class MusicPlayerApp {
     public static void main(String[] args) {
         MusicPlayer player = new MusicPlayer();
-        player.addSong(new Song("YO Mama", "Yo Yo oi", "2023-01-01"));
-        player.addSong(new Song("bu hu hu", "Yo Yo oi", "2023-02-01"));
-        player.addSong(new Song("hahahahahha", "acha", "2023-03-01"));
+        LocalDate date = LocalDate.of(2023,1,1);
+        LocalDate date1 = LocalDate.of(2023,2,1);
+        LocalDate date2 = LocalDate.of(2022,3,1);
+        player.addSong(new Song("YO Mama", "Yo Yo oi", date));
+        player.addSong(new Song("bu hu hu", "Yo Yo oi", date1));
+        player.addSong(new Song("hahahahahha", "acha", date2));
         
         player.playSong("YO Mama", "Yo Yo oi");
         player.playSong("YO Mama", "Yo Yo oi");
         player.playSong("bu hu hu", "Yo Yo oi");
 
-        player.mostPopularSongByArtist("Yo Yo oi");
-        player.mostPopularSongOverall();
-        player.songsByDate("2023-01-01");
+//        player.mostPopularSongByArtist("Yo Yo oi");
+//        player.mostPopularSongOverall();
+        LocalDate date3 = LocalDate.of(2021,11,7);
+        player.nPopularSongBeforeDate(1,date3);
         player.nPopularSongOverall(2);
         player.displayAllSongs();
     }
