@@ -20,5 +20,14 @@ public class MusicPlayerApp {
         player.nPopularSongBeforeDate(1,date3);
         player.nPopularSongOverall(2);
         player.displayAllSongs();
+
+        csvReader playlist = new csvReader();
+        tsvReader playlist1 = new tsvReader();
+        playlist.read();
+        playlist1.read();
+    }
+
+    public void readPlaylist( FileReader f){
+        f.read();
     }
 }

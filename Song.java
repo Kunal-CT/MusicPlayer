@@ -8,14 +8,7 @@ class Song implements Comparable<Song> {
     private int playCount;
     private LocalDate date;
 
-//    public Song(String title, String artist, String dateOfPublish) {
-//        this.title = title;
-//        this.artist = artist;
-//        this.dateOfPublish = dateOfPublish;
-//        this.playCount = 0;
-////        if( !date == NULL)
-//        this.date = LocalDate.now();
-//    }
+
 
     public Song(String title, String artist, LocalDate date){
         this.title = title;
@@ -32,9 +25,7 @@ class Song implements Comparable<Song> {
         return artist;
     }
 
-//    public String getDateOfPublish() {
-//        return dateOfPublish;
-//    }
+
 
     public LocalDate getDate(){
         return date;
@@ -66,5 +57,18 @@ class Song implements Comparable<Song> {
     }
 }
 
+
+//    public Song(String title, String artist, String dateOfPublish) {
+//        this.title = title;
+//        this.artist = artist;
+//        this.dateOfPublish = dateOfPublish;
+//        this.playCount = 0;
+////        if( !date == NULL)
+//        this.date = LocalDate.now();
+//    }
+
+//    public String getDateOfPublish() {
+//        return dateOfPublish;
+//    }
 
 
