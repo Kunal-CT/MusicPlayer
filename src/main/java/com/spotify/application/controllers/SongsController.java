@@ -13,12 +13,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.ExecutorService;
+import jakarta.annotation.PreDestroy;
+import java.util.concurrent.Executors;
 
 
 @RestController
 public class SongsController {
     private List<SongInformation> songList = new ArrayList<>();
     private SongInformation songInformation;
+    private final ExecutorService executorService = Executors.newCachedThreadPool();
+
 
     @PostMapping("/add-songs")
     public  void addSong(@RequestBody SongInformation songInformation) {
@@ -51,19 +56,29 @@ public class SongsController {
             }
     }
 
+    @PreDestroy
+    public void shutdownExecutor() {
+        executorService.shutdown();
+    }
+
+
     @PostMapping("/add-playlist")
     public void addCsv(@RequestBody SongInformation songInformation) {
         String fileType = songInformation.getFileType();
         String[][] data = {
                 {songInformation.getSongName(), songInformation.getSongArtist(), songInformation.getFileType()}
         };
-        if( fileType.equalsIgnoreCase("csv")){
-            csvReader Csv = new csvReader();
-            Csv.post(data);
-        }
-        else if(fileType.equalsIgnoreCase("tsv")){
-            tsvReader Tsv = new tsvReader();
-            Tsv.post(data);
-        }
+        Runnable task = () -> {
+            if (fileType.equalsIgnoreCase("csv")) {
+                csvReader Csv = new csvReader();
+                Csv.post(data);
+            } else if (fileType.equalsIgnoreCase("tsv")) {
+                tsvReader Tsv = new tsvReader();
+                Tsv.post(data);
+            } else {
+                System.out.println("Invalid file type");
+            }
+        };
+        executorService.submit(task);
     }
 }
