@@ -7,6 +7,7 @@ import lombok.*;
 public class SongInformation {
     private String songName;
     private String songArtist;
+    private String fileType;
 
     public String getSongArtist() {
         System.out.println("Song Artist: " + songArtist);
@@ -16,6 +17,11 @@ public class SongInformation {
     public String getSongName() {
         System.out.println("Song Name: " + songName);
         return songName;
+    }
+
+    public String getFileType() {
+        System.out.println("File Type: " + fileType);
+        return fileType;
     }
 //    public SongInformation(String songName, String songArtist) {
 //        this.songName = songName;
